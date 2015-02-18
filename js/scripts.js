@@ -8,7 +8,7 @@ $(document).ready(function() {
     var inputtedStreet2 = $("input#new-street2").val();
     var inputtedCity = $("input#new-city").val();
     var inputtedState = $("input#new-state").val();
-    var inputtedZip = $("input#new-zip").val()
+    var inputtedZip = $("input#new-zip").val();
 
     var newAddress = { street1: inputtedStreet1,
                        street2: inputtedStreet2,

@@ -28,6 +28,14 @@ $(document).ready(function() {
                        lastName: inputtedLastName,
                        address: newAddress.fullAddress()
                      };
+    $(".new-address").each(function() {
+      var inputtedStreet = $(this).find("input.new-street").val();
+      var inputtedCity = $(this).find("input.new-city").val();
+      var inputtedState = $(this).find("input.new-state").val();
+
+      var newAddress = { street: inputtedStreet, city: inputtedCity, state: inputtedState };
+      newContact.addresses.push(newAddress);
+    });
 
     $("ul#contacts").append("<li><span class='contact'>" +
                            newContact.firstName + " " +

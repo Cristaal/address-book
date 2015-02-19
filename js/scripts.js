@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $("#add-address").click(function() {
-    $("#new-addresses").append('<div class="new-address">' +
+    $(".new-addresses").append('<div class="new-addresses">' +
                                 '<div class="form-group">' +
                                    '<label for="new-street1">Address Line 1</label>' +
                                    '<input type="text" class="form-control new-street1" placeholder="Street Address, P.O. box, company name, c/o">' +
@@ -38,14 +38,14 @@ $(document).ready(function() {
 
     var newContact = { firstName: inputtedFirstName, lastName: inputtedLastName, addresses: [] };
 
-    $(".new-address").each(function(){
+debugger;
+    $(".new-addresses").each(function(){
       var inputtedStreet1 = $(this).find("input.new-street1").val();
       var inputtedStreet2 = $(this).find("input.new-street2").val();
       var inputtedCity = $(this).find("input.new-city").val();
       var inputtedState = $(this).find("input.new-state").val();
       var inputtedZip = $(this).find("input.new-zip").val();
-
-      var newAddress = { street: inputtedStreet1, street2: inputtedStreet2, city: inputtedCity, state: inputtedState, zip: inputtedZip,
+      var newAddress = { street1: inputtedStreet1, street2: inputtedStreet2, city: inputtedCity, state: inputtedState, zip: inputtedZip,
         fullAddress: function() {
           if ((/([\w])/).test(this.street2)) {
             return this.street1 + ', ' + this.street2 + ', ' + this.city + ', ' + this.state + ', ' + this.zip;
@@ -66,7 +66,9 @@ $(document).ready(function() {
   $(".contact").last().click(function() {
     $("#show-contact").show();
     $("#show-contact h2").text(newContact.firstName + " " + newContact.lastName);
-    $(".address").text(newContact.addresses[0]);
+    newContact.addresses.forEach(function(address) {
+      $(".address-list").append("<li>" + address.fullAddress() + "</li>");
+    });
   });
 
   });

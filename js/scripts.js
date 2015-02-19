@@ -4,38 +4,28 @@ $(document).ready(function() {
 
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
-    var inputtedStreet1 = $("input#new-street1").val();
-    var inputtedStreet2 = $("input#new-street2").val();
-    var inputtedCity = $("input#new-city").val();
-    var inputtedState = $("input#new-state").val();
-    var inputtedZip = $("input#new-zip").val();
 
-    var newAddress = { street1: inputtedStreet1,
-                       street2: inputtedStreet2,
-                       city: inputtedCity,
-                       state: inputtedState,
-                       zip: inputtedZip,
-                       fullAddress: function() {
-                         if ((/([\w])/).test(this.street2)) {
-                           return this.street1 + ', ' + this.street2 + ', ' + this.city + ', ' + this.state + ', ' + this.zip;
-                         } else {
-                           return this.street1 + ', ' + this.city + ', ' + this.state + ', ' + this.zip;
-                         }
-                       }
-                      };
+    var newContact = { firstName: inputtedFirstName, lastName: inputtedLastName, addresses: [] };
 
-    var newContact = { firstName: inputtedFirstName,
-                       lastName: inputtedLastName,
-                       address: newAddress.fullAddress()
-                     };
     $(".new-address").each(function() {
-      var inputtedStreet = $(this).find("input.new-street").val();
-      var inputtedCity = $(this).find("input.new-city").val();
-      var inputtedState = $(this).find("input.new-state").val();
+      var inputtedStreet1 = $("input#new-street1").val();
+      var inputtedStreet2 = $("input#new-street2").val();
+      var inputtedCity = $("input#new-city").val();
+      var inputtedState = $("input#new-state").val();
+      var inputtedZip = $("input#new-zip").val();
 
-      var newAddress = { street: inputtedStreet, city: inputtedCity, state: inputtedState };
+      var newAddress = { street: inputtedStreet1, street2: inputtedStreet2, city: inputtedCity, state: inputtedState,
+        fullAddress: function() {
+          if ((/([\w])/).test(this.street2)) {
+            return this.street1 + ', ' + this.street2 + ', ' + this.city + ', ' + this.state + ', ' + this.zip;
+          } else {
+            return this.street1 + ', ' + this.city + ', ' + this.state + ', ' + this.zip;
+          }
+        }
+      };
       newContact.addresses.push(newAddress);
     });
+  };
 
     $("ul#contacts").append("<li><span class='contact'>" +
                            newContact.firstName + " " +
@@ -56,4 +46,4 @@ $(document).ready(function() {
       $(".address").text(newContact.address);
     });
   });
-});
+);

@@ -21,8 +21,15 @@ $(document).ready(function() {
                                       '<input type="text" class="form-control new-state" placeholder="State">' +
 
                                       '</div>' +
+
+                                    '<div class="form-group">' +
+                                      '<label for="new-zip">Zip</label>' +
+                                      '<input type="text" class="form-control new-zip" placeholder="Zip">' +
+
+                                    '</div>' +
                                     '</div>');
   });
+
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
 
@@ -32,13 +39,13 @@ $(document).ready(function() {
     var newContact = { firstName: inputtedFirstName, lastName: inputtedLastName, addresses: [] };
 
     $(".new-address").each(function(){
-      var inputtedStreet1 = $("input#new-street1").val();
-      var inputtedStreet2 = $("input#new-street2").val();
-      var inputtedCity = $("input#new-city").val();
-      var inputtedState = $("input#new-state").val();
-      var inputtedZip = $("input#new-zip").val();
+      var inputtedStreet1 = $(this).find("input.new-street1").val();
+      var inputtedStreet2 = $(this).find("input.new-street2").val();
+      var inputtedCity = $(this).find("input.new-city").val();
+      var inputtedState = $(this).find("input.new-state").val();
+      var inputtedZip = $(this).find("input.new-zip").val();
 
-      var newAddress = { street: inputtedStreet1, street2: inputtedStreet2, city: inputtedCity, state: inputtedState,
+      var newAddress = { street: inputtedStreet1, street2: inputtedStreet2, city: inputtedCity, state: inputtedState, zip: inputtedZip,
         fullAddress: function() {
           if ((/([\w])/).test(this.street2)) {
             return this.street1 + ', ' + this.street2 + ', ' + this.city + ', ' + this.state + ', ' + this.zip;
@@ -54,21 +61,16 @@ $(document).ready(function() {
                            newContact.firstName + " " +
                            newContact.lastName +
                            "</span></li>");
+    $("input").val("");
+
+  $(".contact").last().click(function() {
+    $("#show-contact").show();
+    $("#show-contact h2").text(newContact.firstName + " " + newContact.lastName);
+    $(".address").text(newContact.addresses[0]);
+  });
+
   });
 
 
-    $(".contact").last().click(function(){
-      $("#show-contact").show();
-      $("#show-contact h2").text(newContact.firstName + " " + newContact.lastName);
-      $(".address").text(newContact.address);
-    });
-
-    $("input#new-first-name").val("");
-    $("input#new-last-name").val("");
-    $("input#new-street1").val("");
-    $("input#new-street2").val("");
-    $("input#new-city").val("");
-    $("input#new-state").val("");
-    $("input#new-zip").val("");
 
 });
